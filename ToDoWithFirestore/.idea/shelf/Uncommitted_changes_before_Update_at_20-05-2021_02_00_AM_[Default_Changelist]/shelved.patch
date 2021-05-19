@@ -1,0 +1,358 @@
+Index: ../GridView/app/src/main/res/layout/activity_item.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ../GridView/app/src/main/res/layout/activity_item.xml	(date 1617562209636)
++++ ../GridView/app/src/main/res/layout/activity_item.xml	(date 1617562209636)
+@@ -0,0 +1,70 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ItemActivity">
++
++    <ImageView
++        android:id="@+id/iconimage"
++        android:layout_width="0dp"
++        android:layout_height="0dp"
++        android:layout_gravity="center"
++        android:layout_marginStart="16dp"
++        android:layout_marginLeft="16dp"
++        android:layout_marginTop="16dp"
++        android:layout_marginEnd="16dp"
++        android:layout_marginRight="16dp"
++        android:layout_marginBottom="33dp"
++        android:background="#FFFFFF"
++        app:layout_constraintBottom_toTopOf="@+id/brand"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++
++    <TextView
++        android:id="@+id/brand"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center"
++        android:layout_marginBottom="26dp"
++        android:text="Brand"
++        android:textColor="@color/black"
++        android:textSize="35dp"
++        app:layout_constraintBottom_toTopOf="@+id/desc"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.087"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/iconimage" />
++
++    <TextView
++        android:id="@+id/price"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginBottom="245dp"
++        android:text="₹"
++        android:textColor="@color/purple_700"
++        android:textSize="30sp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.07"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/desc" />
++
++    <TextView
++        android:id="@+id/desc"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginBottom="25dp"
++        android:text="Description "
++        android:textSize="30sp"
++        app:layout_constraintBottom_toTopOf="@+id/price"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.111"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/brand" />
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_display.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_display.xml	(date 1621435318950)
++++ app/src/main/res/layout/activity_display.xml	(date 1621435318950)
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".DisplayActivity">
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/recyclerview"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content">
++
++    </androidx.recyclerview.widget.RecyclerView>
++
++</androidx.appcompat.widget.LinearLayoutCompat>
+\ No newline at end of file
+Index: ../chips/app/src/main/res/mipmap-anydpi-v26/ic_banner.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ../chips/app/src/main/res/mipmap-anydpi-v26/ic_banner.xml	(date 1615842112034)
++++ ../chips/app/src/main/res/mipmap-anydpi-v26/ic_banner.xml	(date 1615842112034)
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@color/ic_banner_background"/>
++    <foreground android:drawable="@drawable/ic_banner_foreground"/>
++</adaptive-icon>
+\ No newline at end of file
+Index: app/src/main/java/com/example/todowithfirestore/DisplayActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/todowithfirestore/DisplayActivity.java	(date 1621455679538)
++++ app/src/main/java/com/example/todowithfirestore/DisplayActivity.java	(date 1621455679538)
+@@ -0,0 +1,126 @@
++package com.example.todowithfirestore;
++
++import androidx.annotation.NonNull;
++import androidx.appcompat.app.ActionBar;
++import androidx.appcompat.app.AppCompatActivity;
++import androidx.recyclerview.widget.LinearLayoutManager;
++import androidx.recyclerview.widget.RecyclerView;
++
++import android.annotation.SuppressLint;
++import android.app.ProgressDialog;
++import android.content.Context;
++import android.content.Intent;
++import android.os.Bundle;
++import android.view.Menu;
++import android.view.MenuItem;
++import android.widget.Toast;
++
++import com.google.android.gms.tasks.OnCompleteListener;
++import com.google.android.gms.tasks.OnFailureListener;
++import com.google.android.gms.tasks.Task;
++import com.google.firebase.firestore.DocumentSnapshot;
++import com.google.firebase.firestore.FirebaseFirestore;
++import com.google.firebase.firestore.QuerySnapshot;
++
++import java.util.ArrayList;
++import java.util.List;
++
++public class DisplayActivity extends AppCompatActivity {
++    RecyclerView mRV;
++    List<Model> modelList = new ArrayList<>();
++    RecyclerView.LayoutManager layoutManager;
++    FirebaseFirestore db;
++    CustomAdapter adapter;
++    ProgressDialog pd;
++
++    @SuppressLint("ResourceType")
++    @Override
++    public boolean onCreateOptionsMenu(Menu menu) {
++        // Inflate the menu; this adds items to the action bar if it is present.
++        getMenuInflater().inflate(R.layout.menu_main, menu);
++        return true;
++    }
++
++    @Override
++    public boolean onOptionsItemSelected(MenuItem item) {
++        // Handle action bar item clicks here.
++        int id = item.getItemId();
++
++        if (id == R.id.action_settings) {
++            startActivity(new Intent(DisplayActivity.this, MainActivity.class));
++            finish();
++            return true;
++        }
++
++        return super.onOptionsItemSelected(item);
++    }
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_display);
++        ActionBar actionBar = getSupportActionBar();
++        actionBar.setTitle("To-Do List");
++        db = FirebaseFirestore.getInstance();
++        mRV = findViewById(R.id.recyclerview);
++        mRV.setHasFixedSize(true);
++        layoutManager = new LinearLayoutManager(this);
++        mRV.setLayoutManager(layoutManager);
++        pd = new ProgressDialog(this);
++        showData();
++
++
++    }
++
++    private void showData() {
++        pd.setTitle("Loading data..");
++        pd.show();
++        db.collection("ToDo")
++                .get()
++                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
++                    @Override
++                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
++                        modelList.clear();
++                        pd.dismiss();
++                        for (DocumentSnapshot doc : task.getResult()) {
++                            Model model = new Model(doc.getString("id"), doc.getString("task"), doc.getString("details"));
++                            modelList.add(model);
++
++                        }
++                        adapter = new CustomAdapter(DisplayActivity.this, modelList);
++                        mRV.setAdapter(adapter);
++                    }
++                })
++                .addOnFailureListener(new OnFailureListener() {
++                    @Override
++                    public void onFailure(@NonNull Exception e) {
++                        pd.dismiss();
++                        Toast.makeText(DisplayActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
++                    }
++                });
++    }
++
++    public void deleteData(int index) {
++        pd.setTitle("Deleting Data...");
++        pd.show();
++        db.collection("ToDo").document(modelList.get(index).getId())
++                .delete()
++                .addOnCompleteListener(new OnCompleteListener<Void>() {
++                    @Override
++                    public void onComplete(@NonNull Task<Void> task) {
++                        pd.dismiss();
++                        Toast.makeText(DisplayActivity.this, "Deleted Successfully", Toast.LENGTH_LONG);
++                        showData();
++                    }
++                })
++                .addOnFailureListener(new OnFailureListener() {
++                    @Override
++                    public void onFailure(@NonNull Exception e) {
++                        pd.dismiss();
++                        Toast.makeText(DisplayActivity.this, "Deletion Failed", Toast.LENGTH_LONG);
++
++                    }
++                });
++    }
++
++}
+\ No newline at end of file
+Index: ../RecyclerViewKotlin/app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\n\r\napply plugin: 'kotlin-android'\r\n\r\napply plugin: 'kotlin-android-extensions'\r\n\r\nandroid {\r\n    compileSdkVersion 28\r\n    defaultConfig {\r\n        applicationId \"com.example.android.recyclerview\"\r\n        minSdkVersion 14\r\n        targetSdkVersion 28\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n        testInstrumentationRunner \"android.support.test.runner.AndroidJUnitRunner\"\r\n    }\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n\r\n    lintOptions {\r\n        abortOnError false\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation \"com.android.support:appcompat-v7:28.0.0\"\r\n    implementation \"com.android.support:recyclerview-v7:28.0.0\"\r\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\r\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version\"\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ../RecyclerViewKotlin/app/build.gradle	(revision 5d4802479fb64b357506cbc7971d9cc8a105f9d0)
++++ ../RecyclerViewKotlin/app/build.gradle	(date 1591134486084)
+@@ -5,11 +5,11 @@
+ apply plugin: 'kotlin-android-extensions'
+ 
+ android {
+-    compileSdkVersion 28
++    compileSdkVersion 29
+     defaultConfig {
+         applicationId "com.example.android.recyclerview"
+         minSdkVersion 14
+-        targetSdkVersion 28
++        targetSdkVersion 29
+         versionCode 1
+         versionName "1.0"
+         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+Index: ../RecyclerViewKotlin/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\n\r\nbuildscript {\r\n    ext.kotlin_version = '1.3.11'\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n    dependencies {\r\n        classpath 'com.android.tools.build:gradle:3.3.0'\r\n        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version\"\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ../RecyclerViewKotlin/build.gradle	(revision 5d4802479fb64b357506cbc7971d9cc8a105f9d0)
++++ ../RecyclerViewKotlin/build.gradle	(date 1591134486091)
+@@ -1,13 +1,13 @@
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ 
+ buildscript {
+-    ext.kotlin_version = '1.3.11'
++    ext.kotlin_version = '1.3.72'
+     repositories {
+         google()
+         jcenter()
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:3.3.0'
++        classpath 'com.android.tools.build:gradle:4.0.0'
+         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+Index: ../GridView/app/src/main/java/com/example/gridview/ItemActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ../GridView/app/src/main/java/com/example/gridview/ItemActivity.java	(date 1617562156086)
++++ ../GridView/app/src/main/java/com/example/gridview/ItemActivity.java	(date 1617562156086)
+@@ -0,0 +1,32 @@
++package com.example.gridview;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.content.Intent;
++import android.os.Bundle;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++public class ItemActivity extends AppCompatActivity {
++TextView brand,price,desc;
++ImageView image;
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_item);
++        image=findViewById(R.id.iconimage);
++        brand=findViewById(R.id.brand);
++        price=findViewById(R.id.price);
++        desc=findViewById(R.id.desc);
++
++
++        Intent i2=getIntent();
++        Bundle bundle = i2.getExtras();
++        image.setImageResource(bundle.getInt("img"));
++        brand.setText(bundle.getString("brand"));
++        price.setText(price.getText()+bundle.getString("price"));
++        desc.setText(bundle.getString("desc"));
++
++
++    }
++}
+\ No newline at end of file
+Index: ../RecyclerViewKotlin/gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>distributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-5.1.1-all.zip\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- ../RecyclerViewKotlin/gradle/wrapper/gradle-wrapper.properties	(revision 5d4802479fb64b357506cbc7971d9cc8a105f9d0)
++++ ../RecyclerViewKotlin/gradle/wrapper/gradle-wrapper.properties	(date 1591134452127)
+@@ -1,5 +1,6 @@
++#Wed Jun 03 03:17:32 IST 2020
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-5.1.1-all.zip
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
++distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
